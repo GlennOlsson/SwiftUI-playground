@@ -16,6 +16,7 @@
 		216EEBE92479510C00A1B948 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 216EEBE72479510C00A1B948 /* LaunchScreen.storyboard */; };
 		216EEBF42479510C00A1B948 /* SwiftUI_testingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBF32479510C00A1B948 /* SwiftUI_testingTests.swift */; };
 		216EEBFF2479510C00A1B948 /* SwiftUI_testingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */; };
+		216EEC0E247951C300A1B948 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEC0D247951C300A1B948 /* NotificationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		216EEBFA2479510C00A1B948 /* SwiftUI testingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftUI testingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_testingUITests.swift; sourceTree = "<group>"; };
 		216EEC002479510C00A1B948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		216EEC0D247951C300A1B948 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,7 @@
 			children = (
 				216EEBD92479510800A1B948 /* AppDelegate.swift */,
 				216EEBDB2479510800A1B948 /* SceneDelegate.swift */,
-				216EEBE02479510800A1B948 /* ContentView.swift */,
+				216EEC0C247951B400A1B948 /* Views */,
 				216EEBE22479510C00A1B948 /* Assets.xcassets */,
 				216EEBE72479510C00A1B948 /* LaunchScreen.storyboard */,
 				216EEBEA2479510C00A1B948 /* Info.plist */,
@@ -137,6 +139,15 @@
 				216EEC002479510C00A1B948 /* Info.plist */,
 			);
 			path = "SwiftUI testingUITests";
+			sourceTree = "<group>";
+		};
+		216EEC0C247951B400A1B948 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				216EEBE02479510800A1B948 /* ContentView.swift */,
+				216EEC0D247951C300A1B948 /* NotificationView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +285,7 @@
 				216EEBDF2479510800A1B948 /* SwiftUI_testing.xcdatamodeld in Sources */,
 				216EEBE12479510800A1B948 /* ContentView.swift in Sources */,
 				216EEBDC2479510800A1B948 /* SceneDelegate.swift in Sources */,
+				216EEC0E247951C300A1B948 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

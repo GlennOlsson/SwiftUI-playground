@@ -10,8 +10,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+		NotificationStack {
+			SubView()
+		}
     }
+}
+
+struct SubView: View {
+	
+	@EnvironmentObject var notificationContext: NotificationContext
+	
+	var body: some View {
+		Button(action: {
+			self.notificationContext.showNotification(text: "Hello, bruh", type: .standard)
+		}) {
+			Text("Click")
+		}
+	}
 }
 
 struct ContentView_Previews: PreviewProvider {
