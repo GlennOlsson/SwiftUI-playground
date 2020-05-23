@@ -55,10 +55,11 @@ struct NotificationStack<Content: View>: View {
 //	@State var notificationText: String = ""
 //	@State var notificationType: NotificationType = .standard
 	
-	@EnvironmentObject var notificationContext: NotificationContext
+	@ObservedObject var notificationContext: NotificationContext
 	
 	init(content: @escaping () -> Content) {
 		self.content = content
+		self.notificationContext = NotificationContext()
 	}
 	
 //	func showNotification(text: String, type: NotificationType) {
@@ -75,7 +76,7 @@ struct NotificationStack<Content: View>: View {
 //				.background(self.notificationBackgrund)
 				.zIndex(1)
 			
-			content()
+			content().environmentObject(self.notificationContext)
 		}
     }
 }
