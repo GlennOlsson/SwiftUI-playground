@@ -45,6 +45,10 @@ class NotificationContext: ObservableObject {
 			self.isVisible = true
 		}
 	}
+	
+	func hide() {
+		self.isVisible = false
+	}
 }
 
 struct NotificationStack<Content: View>: View {
@@ -55,7 +59,7 @@ struct NotificationStack<Content: View>: View {
 //	@State var notificationText: String = ""
 //	@State var notificationType: NotificationType = .standard
 	
-	@ObservedObject var notificationContext: NotificationContext
+	var notificationContext: NotificationContext
 	
 	init(content: @escaping () -> Content) {
 		self.content = content
@@ -71,8 +75,8 @@ struct NotificationStack<Content: View>: View {
     var body: some View {
 		print("Upadtr: \(notificationContext.isVisible)")
 		return ZStack {
-			NotificationView(type: notificationContext.notificationType, text: notificationContext.notificationText, isVisible: notificationContext.isVisible)
-				.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: -100)
+			NotificationView(context: notificationContext)
+				.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: 0)
 //				.background(self.notificationBackgrund)
 				.zIndex(1)
 			
@@ -83,9 +87,40 @@ struct NotificationStack<Content: View>: View {
 
 struct NotificationView: View {
 	
-	let type: NotificationType
-	let text: String
-	let isVisible: Bool
+	@ObservedObject var context: NotificationContext
+	
+	private let offset_isVisible: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
+	private let offset_isInvisible: CGFloat = -100
+	
+	let height: CGFloat = 100
+	
+	@State var yValDiff: CGFloat = 0
+	@State var opactity: Double = 1
+	
+	var type: NotificationType {
+		self.context.notificationType
+	}
+	
+	var text: String {
+		self.context.notificationText
+	}
+	
+	var isVisible: Bool {
+		self.context.isVisible
+	}
+	
+	func hide() {
+		self.yValDiff = 0
+		self.context.hide()
+	}
+	
+	var offset: CGFloat {
+		if self.isVisible {
+			return offset_isVisible + self.yValDiff
+		} else {
+			return offset_isInvisible + self.yValDiff
+		}
+	}
 	
 	var notificationBackgrund: Color {
 		if self.type == .standard {
@@ -95,36 +130,52 @@ struct NotificationView: View {
 		}
 	}
 	
-	var offset: CGFloat {
-		if self.isVisible {
-			print("IS VISIBLE")
-			return 100
-		} else {
-			return 0
-		}
-	}
-	
 	var body: some View {
 		HStack {
 			Text(self.text)
-		}.frame(width: pixelsOf(precent: 80, inDimension: .horizontal), height: 100, alignment: .center)
-		.cornerRadius(10)
+				.padding()
+		}.frame(width: pixelsOf(precent: 90, inDimension: .horizontal), height: self.height, alignment: .center)
 		.background(self.notificationBackgrund)
-			.offset(x: 0, y: self.offset)
+			.animation(.none) //No animation for background color
+		.cornerRadius(10)
+		.offset(x: 0, y: self.offset)
+		.animation(.spring())
+			.opacity(self.opactity)
+		.gesture(DragGesture()
+			.onChanged({value in
+				self.yValDiff = min(self.height * 0.1, value.translation.height)
+			})
+			.onEnded({value in
+				//< .5 as we only want to be able to swipe up. -0.5 = 50% of the total height
+				if value.translation.height / self.height < -0.5 {
+					self.hide()
+				} else {
+					self.yValDiff = 0
+				}
+			}))
 	}
 }
 
 struct NotificationView_Previews: PreviewProvider {
     static var previews: some View {
 		NotificationStack {
-			VStack {
-				Text("Hello!")
-				Button(action: {
-					print("Hello")
-				}, label: {
-					Text("Click")
-				})
-			}
+			NotificationViewSubview()
 		}
     }
+}
+
+private struct NotificationViewSubview: View {
+	
+	@EnvironmentObject var notificationContext: NotificationContext
+	
+	var body: some View {
+		VStack {
+			Text("Hello!")
+			Button(action: {
+				self.notificationContext.showNotification(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Egestas pretium aenean pharetra magna ac. Sit amet facilisis magna etiam tempor orci eu lobortis. Quisque egestas diam in arcu cursus. Bibendum neque egestas congue quisque egestas diam in arcu cursus. Faucibus pulvinar elementum integer enim. Feugiat in fermentum posuere urna. Et magnis dis parturient montes nascetur ridiculus mus mauris. Eu non diam phasellus vestibulum lorem sed. Tempus urna et pharetra pharetra massa massa ultri", type: .error)
+			}, label: {
+				Text("Click")
+			})
+		}
+	}
 }
