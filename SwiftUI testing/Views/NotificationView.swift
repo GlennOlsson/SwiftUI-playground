@@ -36,15 +36,30 @@ class NotificationContext: ObservableObject {
 			self.notifications.append(notification)
 		}
 	}
+	
+	func addNotification(type: NotificationType, @ViewBuilder content: @escaping () -> AnyView) {
+		let notification = NotificationModel(type: type, content: content)
+		DispatchQueue.main.async {
+			self.notifications.append(notification)
+		}
+	}
 }
 
-class NotificationModel {
+struct NotificationModel {
 	var type: NotificationType
-	var text: String
+//	var text: String
 	var id: UUID
 	
+	var content: () -> AnyView
+	
 	init(text: String, type: NotificationType) {
-		self.text = text
+		self.content = { AnyView(Text(text)) }
+		self.type = type
+		self.id = UUID()
+	}
+	
+	init(type: NotificationType, @ViewBuilder content: @escaping () -> AnyView) {
+		self.content = content
 		self.type = type
 		self.id = UUID()
 	}
@@ -95,8 +110,8 @@ struct NotificationView: View {
 		notification.type
 	}
 	
-	var text: String {
-		notification.text
+	var content: AnyView {
+		notification.content()
 	}
 	
 	@State var isVisible: Bool = false
@@ -139,7 +154,7 @@ struct NotificationView: View {
 	
 	var body: some View {
 		HStack {
-			Text(self.text)
+			content
 				.padding()
 		}.frame(width: pixelsOf(precent: 90, inDimension: .horizontal), height: self.height, alignment: .center)
 		.background(self.notificationBackgrund)
