@@ -54,23 +54,13 @@ class NotificationModel {
 struct NotificationStack<Content: View>: View {
 	
 	let content: () -> Content
-	
-//	@State var isVisible: Bool = false
-//	@State var notificationText: String = ""
-//	@State var notificationType: NotificationType = .standard
-	
+
 	@ObservedObject var notificationContext: NotificationContext
 	
 	init(content: @escaping () -> Content) {
 		self.content = content
 		self.notificationContext = NotificationContext()
 	}
-	
-//	func showNotification(text: String, type: NotificationType) {
-//		self.notificationText = text
-//		self.notificationType = type
-//		self.isVisible = true
-//	}
 	
 	func removeNotification(notification: NotificationModel) {
 		notificationContext.notifications.removeAll(where: {$0.id == notification.id})
@@ -82,7 +72,6 @@ struct NotificationStack<Content: View>: View {
 				NotificationView(notification: notification, onHide: self.removeNotification)
 						.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: 0)
 						.zIndex(1)
-
 			}
 			
 			content().environmentObject(self.notificationContext)
@@ -91,8 +80,6 @@ struct NotificationStack<Content: View>: View {
 }
 
 struct NotificationView: View {
-	
-//	@ObservedObject var context: NotificationContext
 	
 	private let offset_isVisible: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
 	private let offset_isInvisible: CGFloat = -100
@@ -159,6 +146,7 @@ struct NotificationView: View {
 			.animation(.none) //No animation for background color
 		.cornerRadius(10)
 		.offset(x: 0, y: self.offset)
+		.shadow(radius: 5)
 		.animation(.spring())
 			.gesture(DragGesture()
 			.onChanged({value in
@@ -173,7 +161,7 @@ struct NotificationView: View {
 				}
 			}))
 		.onAppear() {
-				self.isVisible = true
+			self.isVisible = true
 		}
 	}
 }
