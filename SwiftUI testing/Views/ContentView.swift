@@ -39,7 +39,6 @@ struct SubView: View {
 							})
 							Text("Hello")
 							Text("Bajs")
-							c
 						}
 					)
 				}
