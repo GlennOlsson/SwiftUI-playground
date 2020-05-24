@@ -37,11 +37,15 @@ class NotificationContext: ObservableObject {
 		}
 	}
 	
-	func addNotification(type: NotificationType, @ViewBuilder content: @escaping () -> AnyView) {
+	func addNotification<Content: View>(type: NotificationType, @ViewBuilder content: @escaping () -> Content) {
 		let notification = NotificationModel(type: type, content: content)
 		DispatchQueue.main.async {
 			self.notifications.append(notification)
 		}
+	}
+	
+	func addNotification(notification: NotificationModel) {
+		self.notifications.append(notification)
 	}
 }
 
@@ -58,8 +62,8 @@ struct NotificationModel {
 		self.id = UUID()
 	}
 	
-	init(type: NotificationType, @ViewBuilder content: @escaping () -> AnyView) {
-		self.content = content
+	init<Content: View>(type: NotificationType, @ViewBuilder content: @escaping () -> Content) {
+		self.content = { AnyView(content()) }
 		self.type = type
 		self.id = UUID()
 	}

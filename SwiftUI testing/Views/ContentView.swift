@@ -30,20 +30,18 @@ struct SubView: View {
 
 			Button(action: {
 				self.notificationContext.addNotification(type: .error) {
-					AnyView (
-						HStack {
-							Button(action: {
-								print("klick!")
-							}, label: {
-								Text("Hello")
-							})
+					HStack {
+						Button(action: {
+							print("klick!")
+						}, label: {
 							Text("Hello")
-							Text("Bajs")
-						}
-					)
+						})
+						Text("Hello")
+						Text("Bajs")
+					}
 				}
 			}) {
-				Text("Click")
+				Text("Click2")
 			}
 		}
 		
