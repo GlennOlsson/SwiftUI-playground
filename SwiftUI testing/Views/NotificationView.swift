@@ -28,21 +28,27 @@ enum NotificationType {
 
 class NotificationContext: ObservableObject {
 	
-	@Published var isVisible: Bool = false
-	@Published var text: String = ""
-	@Published var notificationType: NotificationType = .standard
+	@Published var notifications: [NotificationModel] = []
 	
-	func showNotification(text: String, type: NotificationType) {
+	func addNotification(text: String, type: NotificationType) {
+			let notification = NotificationModel(text: text, type: type)
 		DispatchQueue.main.async {
-			self.text = text
-			self.notificationType = type
-			self.isVisible = true
+			self.notifications.append(notification)
 		}
 	}
+}
+
+class NotificationModel {
+	var type: NotificationType
+	var text: String
+	var id: UUID
 	
-	func hide() {
-		self.isVisible = false
+	init(text: String, type: NotificationType) {
+		self.text = text
+		self.type = type
+		self.id = UUID()
 	}
+	
 }
 
 struct NotificationStack<Content: View>: View {
@@ -53,7 +59,7 @@ struct NotificationStack<Content: View>: View {
 //	@State var notificationText: String = ""
 //	@State var notificationType: NotificationType = .standard
 	
-	var notificationContext: NotificationContext
+	@ObservedObject var notificationContext: NotificationContext
 	
 	init(content: @escaping () -> Content) {
 		self.content = content
@@ -66,13 +72,18 @@ struct NotificationStack<Content: View>: View {
 //		self.isVisible = true
 //	}
 	
+	func removeNotification(notification: NotificationModel) {
+		notificationContext.notifications.removeAll(where: {$0.id == notification.id})
+	}
+	
     var body: some View {
-		print("Upadtr: \(notificationContext.isVisible)")
 		return ZStack {
-			NotificationView(context: notificationContext)
-				.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: 0)
-//				.background(self.notificationBackgrund)
-				.zIndex(1)
+			ForEach(Array(notificationContext.notifications.enumerated()), id: \.1.id) { (index, notification) in
+				NotificationView(notification: notification, onHide: self.removeNotification)
+						.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: 0)
+						.zIndex(1)
+
+			}
 			
 			content().environmentObject(self.notificationContext)
 		}
@@ -81,7 +92,7 @@ struct NotificationStack<Content: View>: View {
 
 struct NotificationView: View {
 	
-	@ObservedObject var context: NotificationContext
+//	@ObservedObject var context: NotificationContext
 	
 	private let offset_isVisible: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
 	private let offset_isInvisible: CGFloat = -100
@@ -91,21 +102,36 @@ struct NotificationView: View {
 	@State var yValDiff: CGFloat = 0
 	@State var opactity: Double = 1
 	
+	let notification: NotificationModel
+	
 	var type: NotificationType {
-		self.context.notificationType
+		notification.type
 	}
 	
 	var text: String {
-		self.context.text
+		notification.text
 	}
 	
-	var isVisible: Bool {
-		self.context.isVisible
-	}
+	@State var isVisible: Bool = false
+	
+	let onHide: (NotificationModel) -> Void
 	
 	func hide() {
-		self.yValDiff = 0
-		self.context.hide()
+		let animationTime: Double = 2
+		withAnimation(.linear(duration: animationTime)){
+			self.isVisible = false
+			self.yValDiff = 0
+		}
+		
+		//After animation is done, remove notification from rendering
+		DispatchQueue.main.asyncAfter(deadline: .now() + animationTime) {
+			self.onHide(self.notification)
+		}
+	}
+	
+	init(notification: NotificationModel, onHide: @escaping (NotificationModel) -> Void) {
+		self.notification = notification
+		self.onHide = onHide
 	}
 	
 	var offset: CGFloat {
@@ -134,7 +160,6 @@ struct NotificationView: View {
 		.cornerRadius(10)
 		.offset(x: 0, y: self.offset)
 		.animation(.spring())
-			.opacity(self.opactity)
 			.gesture(DragGesture()
 			.onChanged({value in
 				self.yValDiff = min(self.height * 0.4, value.translation.height)
@@ -147,6 +172,9 @@ struct NotificationView: View {
 					self.yValDiff = 0
 				}
 			}))
+		.onAppear() {
+				self.isVisible = true
+		}
 	}
 }
 
@@ -166,7 +194,7 @@ private struct NotificationViewSubview: View {
 		VStack {
 			Text("Hello!")
 			Button(action: {
-				self.notificationContext.showNotification(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Egestas pretium aenean pharetra magna ac. Sit amet facilisis magna etiam tempor orci eu lobortis. Quisque egestas diam in arcu cursus. Bibendum neque egestas congue quisque egestas diam in arcu cursus. Faucibus pulvinar elementum integer enim. Feugiat in fermentum posuere urna. Et magnis dis parturient montes nascetur ridiculus mus mauris. Eu non diam phasellus vestibulum lorem sed. Tempus urna et pharetra pharetra massa massa ultri", type: .error)
+				self.notificationContext.addNotification(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Egestas pretium aenean pharetra magna ac. Sit amet facilisis magna etiam tempor orci eu lobortis. Quisque egestas diam in arcu cursus. Bibendum neque egestas congue quisque egestas diam in arcu cursus. Faucibus pulvinar elementum integer enim. Feugiat in fermentum posuere urna. Et magnis dis parturient montes nascetur ridiculus mus mauris. Eu non diam phasellus vestibulum lorem sed. Tempus urna et pharetra pharetra massa massa ultri", type: .error)
 			}, label: {
 				Text("Click")
 			})

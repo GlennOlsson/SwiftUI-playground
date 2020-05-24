@@ -21,11 +21,20 @@ struct SubView: View {
 	@EnvironmentObject var notificationContext: NotificationContext
 	
 	var body: some View {
-		Button(action: {
-			self.notificationContext.showNotification(text: "Hello, bruh", type: .standard)
-		}) {
-			Text("Click")
+		VStack {
+			Button(action: {
+				self.notificationContext.addNotification(text: "Hello, bruh", type: .standard)
+			}) {
+				Text("Click")
+			}
+
+			Button(action: {
+				self.notificationContext.addNotification(text: "Waddup?", type: .error)
+			}) {
+				Text("Click")
+			}
 		}
+		
 	}
 }
 
