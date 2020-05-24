@@ -23,7 +23,7 @@ struct SubView: View {
 	var body: some View {
 		VStack {
 			Button(action: {
-				self.notificationContext.addNotification(text: "Hello, bruh", type: .standard)
+				self.notificationContext.addNotification(type: .standard, text: "Hello, bruh")
 			}) {
 				Text("Click")
 			}

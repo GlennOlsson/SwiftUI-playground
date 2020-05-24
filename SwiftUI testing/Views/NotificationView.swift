@@ -8,35 +8,32 @@
 
 import SwiftUI
 
-public enum DIMENSION {
-	case vertical, horizontal
-}
-
-func pixelsOf(precent: CGFloat, inDimension: DIMENSION) -> CGFloat{
-	let bounds = UIScreen.main.bounds
-	switch inDimension {
-	case .vertical:
-		return CGFloat(precent / CGFloat(100)) * bounds.height
-	case .horizontal:
-		return CGFloat(precent / CGFloat(100)) * bounds.width
-	}
-}
-
 enum NotificationType {
 	case standard, error
 }
 
+/**
+Context used to publish notifications
+
+- Tag: NotificationContext
+*/
 class NotificationContext: ObservableObject {
 	
 	@Published var notifications: [NotificationModel] = []
 	
-	func addNotification(text: String, type: NotificationType) {
+	/**
+	Add notification with plain text. This will be wrapped in a Text label
+	*/
+	func addNotification(type: NotificationType, text: String) {
 			let notification = NotificationModel(text: text, type: type)
 		DispatchQueue.main.async {
 			self.notifications.append(notification)
 		}
 	}
 	
+	/**
+	Add notification with custom content view
+	*/
 	func addNotification<Content: View>(type: NotificationType, @ViewBuilder content: @escaping () -> Content) {
 		let notification = NotificationModel(type: type, content: content)
 		DispatchQueue.main.async {
@@ -49,9 +46,11 @@ class NotificationContext: ObservableObject {
 	}
 }
 
+/**
+Model a notification to be displayed
+*/
 struct NotificationModel {
 	var type: NotificationType
-//	var text: String
 	var id: UUID
 	
 	var content: () -> AnyView
@@ -67,9 +66,17 @@ struct NotificationModel {
 		self.type = type
 		self.id = UUID()
 	}
-	
 }
 
+/**
+Wrapper for the views to be able to recieve notifications on. Embeds a NotificationContext in the environment for the underlying views to push notifications
+
+The context can be extracted with this line in the subviews declaration
+
+    @EnvironmentObject var notificationContext: NotificationContext
+
+- See also: [NotificationContext](x-source-tag://NotificationContext)
+*/
 struct NotificationStack<Content: View>: View {
 	
 	let content: () -> Content
@@ -89,7 +96,7 @@ struct NotificationStack<Content: View>: View {
 		return ZStack {
 			ForEach(Array(notificationContext.notifications.enumerated()), id: \.1.id) { (index, notification) in
 				NotificationView(notification: notification, onHide: self.removeNotification)
-						.position(x: pixelsOf(precent: 50, inDimension: .horizontal), y: 0)
+					.position(x: UIScreen.main.bounds.width * 0.5, y: 0)
 						.zIndex(1)
 			}
 			
@@ -98,7 +105,7 @@ struct NotificationStack<Content: View>: View {
     }
 }
 
-struct NotificationView: View {
+private struct NotificationView: View {
 	
 	private let offset_isVisible: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
 	private let offset_isInvisible: CGFloat = -100
@@ -160,7 +167,8 @@ struct NotificationView: View {
 		HStack {
 			content
 				.padding()
-		}.frame(width: pixelsOf(precent: 90, inDimension: .horizontal), height: self.height, alignment: .center)
+		}
+		.frame(width: UIScreen.main.bounds.width * 0.9, height: self.height, alignment: .center)
 		.background(self.notificationBackgrund)
 			.animation(.none) //No animation for background color
 		.cornerRadius(10)
@@ -201,7 +209,7 @@ private struct NotificationViewSubview: View {
 		VStack {
 			Text("Hello!")
 			Button(action: {
-				self.notificationContext.addNotification(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Egestas pretium aenean pharetra magna ac. Sit amet facilisis magna etiam tempor orci eu lobortis. Quisque egestas diam in arcu cursus. Bibendum neque egestas congue quisque egestas diam in arcu cursus. Faucibus pulvinar elementum integer enim. Feugiat in fermentum posuere urna. Et magnis dis parturient montes nascetur ridiculus mus mauris. Eu non diam phasellus vestibulum lorem sed. Tempus urna et pharetra pharetra massa massa ultri", type: .error)
+				self.notificationContext.addNotification(type: .error, text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Egestas pretium aenean pharetra magna ac. Sit amet facilisis magna etiam tempor orci eu lobortis. Quisque egestas diam in arcu cursus. Bibendum neque egestas congue quisque egestas diam in arcu cursus. Faucibus pulvinar elementum integer enim. Feugiat in fermentum posuere urna. Et magnis dis parturient montes nascetur ridiculus mus mauris. Eu non diam phasellus vestibulum lorem sed. Tempus urna et pharetra pharetra massa massa ultri")
 			}, label: {
 				Text("Click")
 			})
