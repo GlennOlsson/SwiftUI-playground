@@ -455,6 +455,7 @@
 				DEVELOPMENT_TEAM = S9S99M2W87;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SwiftUI testing/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,6 +476,7 @@
 				DEVELOPMENT_TEAM = S9S99M2W87;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SwiftUI testing/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

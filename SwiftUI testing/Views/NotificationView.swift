@@ -28,19 +28,13 @@ enum NotificationType {
 
 class NotificationContext: ObservableObject {
 	
-	@Published var isVisible: Bool = false {
-		willSet {
-			print("Set")
-			objectWillChange.send()
-		}
-	}
-	@Published var notificationText: String = ""
+	@Published var isVisible: Bool = false
+	@Published var text: String = ""
 	@Published var notificationType: NotificationType = .standard
 	
 	func showNotification(text: String, type: NotificationType) {
-		print("SHOW")
 		DispatchQueue.main.async {
-			self.notificationText = text
+			self.text = text
 			self.notificationType = type
 			self.isVisible = true
 		}
@@ -102,7 +96,7 @@ struct NotificationView: View {
 	}
 	
 	var text: String {
-		self.context.notificationText
+		self.context.text
 	}
 	
 	var isVisible: Bool {
@@ -141,9 +135,9 @@ struct NotificationView: View {
 		.offset(x: 0, y: self.offset)
 		.animation(.spring())
 			.opacity(self.opactity)
-		.gesture(DragGesture()
+			.gesture(DragGesture()
 			.onChanged({value in
-				self.yValDiff = min(self.height * 0.1, value.translation.height)
+				self.yValDiff = min(self.height * 0.4, value.translation.height)
 			})
 			.onEnded({value in
 				//< .5 as we only want to be able to swipe up. -0.5 = 50% of the total height
