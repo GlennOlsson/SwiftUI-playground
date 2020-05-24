@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
 //		let notificationContext = NotificationContext()
 		
-		let contentView = ContentView()
+		let contentView = NotificationExample()
 			.environment(\.managedObjectContext, context)
 //			.environmentObject(notificationContext)
 		

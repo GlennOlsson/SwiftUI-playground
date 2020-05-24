@@ -25,24 +25,26 @@ class NotificationContext: ObservableObject {
 	Add notification with plain text. This will be wrapped in a Text label
 	*/
 	func addNotification(type: NotificationType, text: String) {
-			let notification = NotificationModel(text: text, type: type)
-		DispatchQueue.main.async {
-			self.notifications.append(notification)
-		}
+		let notification = NotificationModel(type: type, text: text)
+		self.addNotification(notification: notification)
 	}
 	
 	/**
 	Add notification with custom content view
 	*/
-	func addNotification<Content: View>(type: NotificationType, @ViewBuilder content: @escaping () -> Content) {
+	func addNotification<Content: View>(type: NotificationType, @ViewBuilder content: @escaping (UUID) -> Content) {
 		let notification = NotificationModel(type: type, content: content)
+		self.addNotification(notification: notification)
+	}
+	
+	func addNotification(notification: NotificationModel) {
 		DispatchQueue.main.async {
 			self.notifications.append(notification)
 		}
 	}
 	
-	func addNotification(notification: NotificationModel) {
-		self.notifications.append(notification)
+	func removeNotification(id: UUID) {
+		notifications.removeAll(where: {$0.id == id})
 	}
 }
 
@@ -55,16 +57,27 @@ struct NotificationModel {
 	
 	var content: () -> AnyView
 	
-	init(text: String, type: NotificationType) {
+	/**
+	- Parameters:
+	    - type : The notification type to be associated with the notification
+	    - text: The text the notification will display
+	*/
+	init(type: NotificationType, text: String) {
 		self.content = { AnyView(Text(text)) }
 		self.type = type
 		self.id = UUID()
 	}
 	
-	init<Content: View>(type: NotificationType, @ViewBuilder content: @escaping () -> Content) {
-		self.content = { AnyView(content()) }
+	/**
+	- parameters:
+	    - type : The notification type to be associated with the notification
+	    - content: The closure will be called with the id of the notification
+	*/
+	init<Content: View>(type: NotificationType, @ViewBuilder content: @escaping (UUID) -> Content) {
 		self.type = type
-		self.id = UUID()
+		let id = UUID()
+		self.id = id
+		self.content = { AnyView(content(id)) }
 	}
 }
 
@@ -89,7 +102,7 @@ struct NotificationStack<Content: View>: View {
 	}
 	
 	func removeNotification(notification: NotificationModel) {
-		notificationContext.notifications.removeAll(where: {$0.id == notification.id})
+		notificationContext.removeNotification(id: notification.id)
 	}
 	
     var body: some View {
@@ -105,6 +118,9 @@ struct NotificationStack<Content: View>: View {
     }
 }
 
+/**
+The actual notification that is displayed
+*/
 private struct NotificationView: View {
 	
 	private let offset_isVisible: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212F116C247AAAF60075F4E0 /* NotificationExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F116B247AAAF60075F4E0 /* NotificationExample.swift */; };
 		216EEBDA2479510800A1B948 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBD92479510800A1B948 /* AppDelegate.swift */; };
 		216EEBDC2479510800A1B948 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBDB2479510800A1B948 /* SceneDelegate.swift */; };
 		216EEBDF2479510800A1B948 /* SwiftUI_testing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBDD2479510800A1B948 /* SwiftUI_testing.xcdatamodeld */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		212F116B247AAAF60075F4E0 /* NotificationExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExample.swift; sourceTree = "<group>"; };
 		216EEBD62479510800A1B948 /* SwiftUI testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		216EEBD92479510800A1B948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		216EEBDB2479510800A1B948 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				216EEBE02479510800A1B948 /* ContentView.swift */,
 				216EEC0D247951C300A1B948 /* NotificationView.swift */,
+				212F116B247AAAF60075F4E0 /* NotificationExample.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				216EEBDA2479510800A1B948 /* AppDelegate.swift in Sources */,
+				212F116C247AAAF60075F4E0 /* NotificationExample.swift in Sources */,
 				216EEBDF2479510800A1B948 /* SwiftUI_testing.xcdatamodeld in Sources */,
 				216EEBE12479510800A1B948 /* ContentView.swift in Sources */,
 				216EEBDC2479510800A1B948 /* SceneDelegate.swift in Sources */,

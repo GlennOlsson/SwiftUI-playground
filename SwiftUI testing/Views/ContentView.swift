@@ -29,7 +29,7 @@ struct SubView: View {
 			}
 
 			Button(action: {
-				self.notificationContext.addNotification(type: .error) {
+				self.notificationContext.addNotification(type: .error) {_ in
 					HStack {
 						Button(action: {
 							print("klick!")
