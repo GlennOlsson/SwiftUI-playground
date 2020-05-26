@@ -32,16 +32,30 @@ struct SubView: View {
 					Text("Settings")
 				}
 				
-				NavigationLink(destination: ScannerView()) {
+				NavigationLink(destination: ScannerParentView()) {
 					Text("Scanner")
-				}
-					
+				}.padding()
+				
 				HStack(alignment: .center, spacing: 0) {
 					Text("100 ")
 					Text(self.unitIsMeter)
 				}
 			}
 		}
+	}
+}
+
+struct ScannerParentView: View {
+	@State var isFronCamera: Bool = true
+	
+	var body: some View {
+		ZStack {
+			ScannerView(isFrontCamera: self.$isFronCamera)
+			
+		}.navigationBarItems(trailing:
+			Button("Toggle camera") {
+				self.isFronCamera.toggle()
+		})
 	}
 }
 

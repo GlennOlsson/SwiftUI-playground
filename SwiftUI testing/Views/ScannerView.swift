@@ -23,6 +23,13 @@ struct ScannerView: UIViewControllerRepresentable {
 		var label: UILabel!
 		var rect: UIView!
 		
+		var layer: CALayer?
+		
+		var captureSession: AVCaptureSession?
+		var input: AVCaptureInput?
+		
+		var previewLayer: AVCaptureVideoPreviewLayer?
+		
 		init(_ parent: ScannerView) {
 			self.parent = parent
 			self.parentView = nil
@@ -32,21 +39,21 @@ struct ScannerView: UIViewControllerRepresentable {
 			rect.backgroundColor = .black
 			
 			if let window = UIApplication.shared.windows.first {
-				window.addSubview(label)
-				window.addSubview(rect)
+//				window.addSubview(label)
+								window.addSubview(rect)
 			}
 		}
 		
 		func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 			if let metadata = metadataObjects.first {
 				
-//				parentView!.addSubview(label)
+				//				parentView!.addSubview(label)
 				
-//				if let window = UIApplication.shared.windows.first {
-//					window.addSubview(label)
-//				} else {
-//					print("No window??")
-//				}
+				//				if let window = UIApplication.shared.windows.first {
+				//					window.addSubview(label)
+				//				} else {
+				//					print("No window??")
+				//				}
 				print("x: \(metadata.bounds.origin.x), y: \(metadata.bounds.origin.y), width: \(metadata.bounds.width), height: \(metadata.bounds.height)")
 				
 				let window =  UIApplication.shared.windows.first!
@@ -57,25 +64,40 @@ struct ScannerView: UIViewControllerRepresentable {
 				let metaX = metaBounds.x * windowWidth
 				let metaY = metaBounds.y * windowHeight
 				
-				if let readableObject = metadata as? AVMetadataMachineReadableCodeObject {
+				label.frame = CGRect(x: metaY, y: metaX, width: 500, height: 100)
+
+				let bounds2 = self.previewLayer?.transformedMetadataObject(for: metadata)?.bounds
+				self.layer!.frame = CGRect(x: bounds2!.origin.x, y: bounds2!.origin.y, width: bounds2!.width, height: bounds2!.height)
+				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))				if let readableObject = metadata as? AVMetadataMachineReadableCodeObject {
+					
+					print("rect1: \(readableObject.bounds.origin), rect2: \(metadata.bounds.origin), rect3: \(bounds2)")
+					
 					guard let stringValue = readableObject.stringValue else { return }
 					print("Found code! \(stringValue)")
-//					let label = UILabel()
+					//					let label = UILabel()
 					
-					self.rect.bounds = CGRect(x: metaY, y: metaX, width: 100, height: 100)
-						
-					label.text = stringValue
+//					self.rect.frame = CGRect(x: bounds2!.origin.x, y: bounds2!.origin.y, width: bounds2!.width, height: bounds2!.height)
+					self.rect.bounds = bounds2!
+//					label.frame = CGRect(x: bounds2!.origin.x, y: bounds2!.origin.y, width: 500, height: 100)
+//					label.text = stringValue
+					
 					//				label.bounds = metadata.bounds
-					label.frame = CGRect(x: metaY, y: metaX, width: 500, height: 100)
-//					parentView?.addSubview(label)
+					//					parentView?.addSubview(label)
 					print(metadata.accessibilityFrame, metadata.accessibilityActivationPoint)
 				} else if let catObject = metadata as? AVMetadataCatBodyObject {
-					
+					label.text = "Katt!!"
+				} else if let face = metadata as? AVMetadataFaceObject {
+					label.text = "Människa nr. \(face.faceID)"
+					print("ID: \(face.faceID), jawnAngle: \(face.rollAngle)")
+				} else if let body = metadata as? AVMetadataHumanBodyObject {
+					label.text = "Människokropp"
 				}
 			}
 		}
 		
 	}
+	
+	@Binding var isFrontCamera: Bool
 	
 	func makeCoordinator() -> Coordinator {
 		return Coordinator(self)
@@ -83,29 +105,63 @@ struct ScannerView: UIViewControllerRepresentable {
 	
 	func makeUIViewController(context: Context) -> UIViewController {
 		let viewController = UIViewController()
-		
 		self.view = viewController.view
 		
+		self.createNewScannerLayer(controller: viewController, context: context, captureDevice: getCamera(isFront: self.isFrontCamera))
+		
+		return viewController
+	}
+	
+	func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+		
+		let captureSession = context.coordinator.captureSession!
+		let input = context.coordinator.input!
+		captureSession.stopRunning()
+		
+		let newInputOptional = createAVInput(captureDevice: getCamera(isFront: self.isFrontCamera))
+		guard let newInput = newInputOptional else { return }
+		
+		captureSession.removeInput(input)
+		
+		if captureSession.canAddInput(newInput) {
+			captureSession.addInput(newInput)
+			context.coordinator.input = newInput
+		}
+		
+		captureSession.startRunning()
+		
+		//		self.createNewScannerLayer(controller: uiViewController, context: context, captureDevice: getCamera(isFront: self.isFrontCamera))
+	}
+	
+	private func getCamera(isFront: Bool) -> AVCaptureDevice? {
+		if isFront {
+			return AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front)
+		} else {
+			return AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back)
+		}
+	}
+	
+	private func createNewScannerLayer(controller: UIViewController, context: Context, captureDevice: AVCaptureDevice?) {
 		let captureSession = AVCaptureSession()
-		guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+		context.coordinator.captureSession = captureSession
+		
+		guard let captureDevice = captureDevice else {
 			print("Could not get default capture device")
-			return viewController
+			return
 		}
 		
-		let avInput: AVCaptureDeviceInput
-		
-		do {
-			avInput = try AVCaptureDeviceInput(device: captureDevice)
-		} catch {
-			print("Could not create AVCaptureDevice. \(error.localizedDescription)")
-			return viewController
+		guard let avInput = self.createAVInput(captureDevice: captureDevice) else {
+			print("AVInput was nil")
+			return
 		}
+		
+		context.coordinator.input = avInput
 		
 		if (captureSession.canAddInput(avInput)) {
 			captureSession.addInput(avInput)
 		} else {
 			print("Could not add input")
-			return viewController
+			return
 		}
 		
 		let metadataOutput = AVCaptureMetadataOutput()
@@ -114,26 +170,46 @@ struct ScannerView: UIViewControllerRepresentable {
 			captureSession.addOutput(metadataOutput)
 			
 			metadataOutput.setMetadataObjectsDelegate(context.coordinator, queue: .main)
-			metadataOutput.metadataObjectTypes = [.qr, .catBody]
+			metadataOutput.metadataObjectTypes = [.qr, .catBody, .face, .humanBody]
 		} else {
 			print("Could not add metadata output")
-			return viewController
+			return
 		}
 		
-		context.coordinator.parentView = viewController.view
+		context.coordinator.parentView = controller.view
 		
 		let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		previewLayer.frame = viewController.view.bounds
+		previewLayer.frame = controller.view.bounds
 		previewLayer.videoGravity = .resizeAspectFill
-		viewController.view.layer.addSublayer(previewLayer)
+		controller.view.layer.addSublayer(previewLayer)
+		
+		
+		let layer = CALayer()
+		layer.backgroundColor = CGColor.init(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+		context.coordinator.layer = layer
+		previewLayer.addSublayer(layer)
+		
+		context.coordinator.previewLayer = previewLayer
 		
 		captureSession.startRunning()
-		
-		return viewController
 	}
 	
-	func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+	func createAVInput(captureDevice: AVCaptureDevice?) -> AVCaptureInput? {
+		guard let captureDevice = captureDevice else {
+			print("Could not get default capture device")
+			return nil
+		}
 		
+		let avInput: AVCaptureDeviceInput
+		
+		do {
+			avInput = try AVCaptureDeviceInput(device: captureDevice)
+		} catch {
+			print("Could not create AVCaptureDevice. \(error.localizedDescription)")
+			return nil
+		}
+		
+		return avInput
 	}
-
+	
 }
