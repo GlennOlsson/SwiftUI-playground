@@ -31,6 +31,10 @@ struct SubView: View {
 				NavigationLink(destination: SettingsView()) {
 					Text("Settings")
 				}
+				
+				NavigationLink(destination: ScannerView()) {
+					Text("Scanner")
+				}
 					
 				HStack(alignment: .center, spacing: 0) {
 					Text("100 ")
