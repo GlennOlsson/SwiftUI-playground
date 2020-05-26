@@ -7,49 +7,42 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
-    var body: some View {
+	var body: some View {
 		NotificationStack {
 			SubView()
 		}
-    }
+	}
 }
 
 struct SubView: View {
 	
+	let defaults: UserDefaults = .standard
+	
 	@EnvironmentObject var notificationContext: NotificationContext
 	
+	@ObservedObject @UserDefault(key: "unit") var unitIsMeter = "meter";
+	
 	var body: some View {
-		VStack {
-			Button(action: {
-				self.notificationContext.addNotification(type: .standard, text: "Hello, bruh")
-			}) {
-				Text("Click")
-			}
-
-			Button(action: {
-				self.notificationContext.addNotification(type: .error) {_ in
-					HStack {
-						Button(action: {
-							print("klick!")
-						}, label: {
-							Text("Hello")
-						})
-						Text("Hello")
-						Text("Bajs")
-					}
+		NavigationView {
+			VStack {
+				NavigationLink(destination: SettingsView()) {
+					Text("Settings")
 				}
-			}) {
-				Text("Click2")
+					
+				HStack(alignment: .center, spacing: 0) {
+					Text("100 ")
+					Text(self.unitIsMeter)
+				}
 			}
 		}
-		
 	}
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+	static var previews: some View {
+		ContentView()
+	}
 }
