@@ -21,6 +21,8 @@
 		216EEBF42479510C00A1B948 /* SwiftUI_testingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBF32479510C00A1B948 /* SwiftUI_testingTests.swift */; };
 		216EEBFF2479510C00A1B948 /* SwiftUI_testingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */; };
 		216EEC0E247951C300A1B948 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEC0D247951C300A1B948 /* NotificationView.swift */; };
+		21CBECA0247E9527004D46A7 /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBEC9F247E9527004D46A7 /* ChecklistView.swift */; };
+		21CBECA2247E9F2B004D46A7 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_testingUITests.swift; sourceTree = "<group>"; };
 		216EEC002479510C00A1B948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		216EEC0D247951C300A1B948 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		21CBEC9F247E9527004D46A7 /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
+		21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				216EEBE02479510800A1B948 /* ContentView.swift */,
+				21CBEC9F247E9527004D46A7 /* ChecklistView.swift */,
+				21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */,
 				212F116F247AC3810075F4E0 /* UserDefaultWrapper.swift */,
 				212F116D247AB77C0075F4E0 /* SettingsView.swift */,
 				216EEC0D247951C300A1B948 /* NotificationView.swift */,
@@ -293,6 +299,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21CBECA0247E9527004D46A7 /* ChecklistView.swift in Sources */,
+				21CBECA2247E9F2B004D46A7 /* QRCodeReader.swift in Sources */,
 				215E2F9E247D29F800C87650 /* ScannerView.swift in Sources */,
 				212F1170247AC3810075F4E0 /* UserDefaultWrapper.swift in Sources */,
 				212F116E247AB77C0075F4E0 /* SettingsView.swift in Sources */,

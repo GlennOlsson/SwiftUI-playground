@@ -36,6 +36,10 @@ struct SubView: View {
 					Text("Scanner")
 				}.padding()
 				
+				NavigationLink(destination: ChecklistView()) {
+					Text("Checklista")
+				}.padding()
+				
 				HStack(alignment: .center, spacing: 0) {
 					Text("100 ")
 					Text(self.unitIsMeter)
