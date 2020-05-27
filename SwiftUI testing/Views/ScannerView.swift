@@ -25,6 +25,8 @@ struct ScannerView: UIViewControllerRepresentable {
 		
 		var layer: CALayer?
 		
+		var lastObject: AVMetadataObject.ObjectType? = nil
+		
 		var captureSession: AVCaptureSession?
 		var input: AVCaptureInput?
 		
@@ -40,11 +42,20 @@ struct ScannerView: UIViewControllerRepresentable {
 			
 			if let window = UIApplication.shared.windows.first {
 //				window.addSubview(label)
-								window.addSubview(rect)
+//								window.addSubview(rect)
 			}
 		}
 		
+		
+		
 		func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+			print(metadataObjects.count)
+			if metadataObjects.count == 0 {
+				self.layer?.isHidden = true
+				self.lastObject = nil
+			} else {
+				self.layer?.isHidden = false
+			}
 			if let metadata = metadataObjects.first {
 				
 				//				parentView!.addSubview(label)
@@ -54,7 +65,12 @@ struct ScannerView: UIViewControllerRepresentable {
 				//				} else {
 				//					print("No window??")
 				//				}
-				print("x: \(metadata.bounds.origin.x), y: \(metadata.bounds.origin.y), width: \(metadata.bounds.width), height: \(metadata.bounds.height)")
+//				print("x: \(metadata.bounds.origin.x), y: \(metadata.bounds.origin.y), width: \(metadata.bounds.width), height: \(metadata.bounds.height)")
+				
+				if metadata.type != lastObject {
+					UIImpactFeedbackGenerator(style: .light).impactOccurred()
+					lastObject = metadata.type
+				}
 				
 				let window =  UIApplication.shared.windows.first!
 				let windowWidth = parentView!.bounds.width
@@ -68,12 +84,11 @@ struct ScannerView: UIViewControllerRepresentable {
 
 				let bounds2 = self.previewLayer?.transformedMetadataObject(for: metadata)?.bounds
 				self.layer!.frame = CGRect(x: bounds2!.origin.x, y: bounds2!.origin.y, width: bounds2!.width, height: bounds2!.height)
-				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))				if let readableObject = metadata as? AVMetadataMachineReadableCodeObject {
-					
-					print("rect1: \(readableObject.bounds.origin), rect2: \(metadata.bounds.origin), rect3: \(bounds2)")
+				if let readableObject = metadata as? AVMetadataMachineReadableCodeObject {
+//					print("rect1: \(readableObject.bounds.origin), rect2: \(metadata.bounds.origin), rect3: \(bounds2)")
 					
 					guard let stringValue = readableObject.stringValue else { return }
-					print("Found code! \(stringValue)")
+//					print("Found code! \(stringValue)")
 					//					let label = UILabel()
 					
 //					self.rect.frame = CGRect(x: bounds2!.origin.x, y: bounds2!.origin.y, width: bounds2!.width, height: bounds2!.height)
@@ -83,12 +98,12 @@ struct ScannerView: UIViewControllerRepresentable {
 					
 					//				label.bounds = metadata.bounds
 					//					parentView?.addSubview(label)
-					print(metadata.accessibilityFrame, metadata.accessibilityActivationPoint)
+//					print(metadata.accessibilityFrame, metadata.accessibilityActivationPoint)
 				} else if let catObject = metadata as? AVMetadataCatBodyObject {
 					label.text = "Katt!!"
 				} else if let face = metadata as? AVMetadataFaceObject {
 					label.text = "Människa nr. \(face.faceID)"
-					print("ID: \(face.faceID), jawnAngle: \(face.rollAngle)")
+//					print("ID: \(face.faceID), jawnAngle: \(face.rollAngle)")
 				} else if let body = metadata as? AVMetadataHumanBodyObject {
 					label.text = "Människokropp"
 				}
@@ -127,6 +142,8 @@ struct ScannerView: UIViewControllerRepresentable {
 			captureSession.addInput(newInput)
 			context.coordinator.input = newInput
 		}
+		
+		context.coordinator.layer?.isHidden = true
 		
 		captureSession.startRunning()
 		
@@ -185,7 +202,9 @@ struct ScannerView: UIViewControllerRepresentable {
 		
 		
 		let layer = CALayer()
-		layer.backgroundColor = CGColor.init(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+		layer.backgroundColor = CGColor.init(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 0)
+		layer.borderWidth = 1
+		layer.borderColor = .init(srgbRed: 1, green: 1, blue: 1, alpha: 1)
 		context.coordinator.layer = layer
 		previewLayer.addSublayer(layer)
 		
