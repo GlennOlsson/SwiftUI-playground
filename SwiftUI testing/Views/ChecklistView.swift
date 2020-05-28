@@ -8,92 +8,28 @@
 
 import Foundation
 import SwiftUI
-
-let peopleWithTickets: [[String: Any]] = [
-	[
-		"name": "Glenn Olsson",
-		"id": "glennol",
-		"isSelected": false
-	], [
-		"name": "Fredrik",
-		"id": "frnorlin",
-		"isSelected": false
-	], [
-		"name": "Linus",
-		"id": "linusri",
-		"isSelected": false
-	], [
-		"name": "Oscar",
-		"id": "oscarekh",
-		"isSelected": false
-	],[
-		"name": "Dexter Callahan",
-		"id": "dextercallahan",
-		"isSelected": false
-	],[
-		"name": "Opal Salter",
-		"id": "opalsalter",
-		"isSelected": false
-	],[
-		"name": "Mehmet Bernard",
-		"id": "mehmetbernard",
-		"isSelected": false
-	],[
-		"name": "Alexandre Khan",
-		"id": "alexandrekhan",
-		"isSelected": false
-	],[
-		"name": "Domonic Rivers",
-		"id": "domonicrivers",
-		"isSelected": false
-	],[
-		"name": "Leela Bradley",
-		"id": "leelabradley",
-		"isSelected": false
-	],[
-		"name": "Aston Mcdonald",
-		"id": "astonmcdonald",
-		"isSelected": false
-	],[
-		"name": "Atif Ponce",
-		"id": "atifponce",
-		"isSelected": false
-	],[
-		"name": "Bobbi Jacobson",
-		"id": "bobbijacobson",
-		"isSelected": false
-	],[
-		"name": "Marvin Holden",
-		"id": "marvinholden",
-		"isSelected": false
-	]
-]
-
-class Person: ObservableObject{
-	let name: String
-	let id: String
-	@Published var isSelected: Bool
-	
-	init(_ dictionary: [String: Any]) {
-		self.name = dictionary["name"] as! String
-		self.id = dictionary["id"] as! String
-		self.isSelected = dictionary["isSelected"] as! Bool
-	}
-}
+//
+//class Person: ObservableObject{
+//	let name: String
+//	let id: String
+//	@Published var isSelected: Bool
+//	
+//	init(_ dictionary: [String: Any]) {
+//		self.name = dictionary["name"] as! String
+//		self.id = dictionary["id"] as! String
+//		self.isSelected = dictionary["isSelected"] as! Bool
+//	}
+//}
 
 struct ChecklistView: View {
 	
-	let listOfPeople: [Person]
+	@FetchRequest(entity: Person.entity(), sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var listOfPeople: FetchedResults<Person>
 	
 	@State var showQRCodeReader: Bool = false
 	@State var isFrontCamera: Bool = false
 	
 	@State var isShowingAlert: Bool = false
 	@State var currentAlert: Alert!
-	
-	init() {
-		listOfPeople = peopleWithTickets.map({Person($0)})
-	}
 	
 	func onScan(_ codeContent: String) {
 		
@@ -149,7 +85,7 @@ private struct ListItem: View {
 				.toggleStyle(CheckboxStyle())
 				.padding(.trailing)
 			
-			Text(self.person.name)
+			Text(self.person.name ?? "Inget namn")
 		}
 	}
 }
@@ -178,7 +114,11 @@ private struct CheckboxStyle: ToggleStyle {
 }
 
 struct ChecklistView_Previews: PreviewProvider {
+	
 	static var previews: some View {
-		ChecklistView()
+		let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+		insertPeople(moc: context)
+
+		return ChecklistView().environment(\.managedObjectContext, context)
 	}
 }

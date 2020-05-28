@@ -21,6 +21,10 @@
 		216EEBF42479510C00A1B948 /* SwiftUI_testingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBF32479510C00A1B948 /* SwiftUI_testingTests.swift */; };
 		216EEBFF2479510C00A1B948 /* SwiftUI_testingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */; };
 		216EEC0E247951C300A1B948 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EEC0D247951C300A1B948 /* NotificationView.swift */; };
+		21C4064924803F5300585400 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4064824803F5300585400 /* CloudKit.framework */; };
+		21C4064A24803F6300585400 /* SwiftUI_testing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBDD2479510800A1B948 /* SwiftUI_testing.xcdatamodeld */; };
+		21C4064D24803F6F00585400 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4064C24803F6F00585400 /* CloudKit.framework */; };
+		21C4064F2480411F00585400 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4064E2480411F00585400 /* CoreData.framework */; };
 		21CBECA0247E9527004D46A7 /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBEC9F247E9527004D46A7 /* ChecklistView.swift */; };
 		21CBECA2247E9F2B004D46A7 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */; };
 		21DE3100247FB1FA009DC733 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DE30FE247FB1FA009DC733 /* Interface.storyboard */; };
@@ -35,6 +39,7 @@
 		21DE311A247FB1FD009DC733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DE3119247FB1FD009DC733 /* Assets.xcassets */; };
 		21DE311D247FB1FD009DC733 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DE311C247FB1FD009DC733 /* Preview Assets.xcassets */; };
 		21DE3122247FB1FD009DC733 /* WatchTarget.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 21DE30FC247FB1FA009DC733 /* WatchTarget.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		21DE312C248039D2009DC733 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE312B248039D2009DC733 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +119,11 @@
 		216EEBFE2479510C00A1B948 /* SwiftUI_testingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_testingUITests.swift; sourceTree = "<group>"; };
 		216EEC002479510C00A1B948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		216EEC0D247951C300A1B948 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		21C4064624803F4E00585400 /* SwiftUI testing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SwiftUI testing.entitlements"; sourceTree = "<group>"; };
+		21C4064824803F5300585400 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		21C4064B24803F6D00585400 /* WatchTarget Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTarget Extension.entitlements"; sourceTree = "<group>"; };
+		21C4064C24803F6F00585400 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		21C4064E2480411F00585400 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		21CBEC9F247E9527004D46A7 /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 		21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
 		21DE30FC247FB1FA009DC733 /* WatchTarget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTarget.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +141,7 @@
 		21DE311C247FB1FD009DC733 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21DE311E247FB1FD009DC733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21DE311F247FB1FD009DC733 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		21DE312B248039D2009DC733 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C4064924803F5300585400 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +171,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21C4064D24803F6F00585400 /* CloudKit.framework in Frameworks */,
+				21C4064F2480411F00585400 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +188,7 @@
 				21DE30FD247FB1FA009DC733 /* WatchTarget */,
 				21DE310C247FB1FC009DC733 /* WatchTarget Extension */,
 				216EEBD72479510800A1B948 /* Products */,
+				21C4064724803F5300585400 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,8 +207,10 @@
 		216EEBD82479510800A1B948 /* SwiftUI testing */ = {
 			isa = PBXGroup;
 			children = (
+				21C4064624803F4E00585400 /* SwiftUI testing.entitlements */,
 				216EEBD92479510800A1B948 /* AppDelegate.swift */,
 				216EEBDB2479510800A1B948 /* SceneDelegate.swift */,
+				21DE312B248039D2009DC733 /* Constants.swift */,
 				216EEC0C247951B400A1B948 /* Views */,
 				216EEBE22479510C00A1B948 /* Assets.xcassets */,
 				216EEBE72479510C00A1B948 /* LaunchScreen.storyboard */,
@@ -245,6 +262,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		21C4064724803F5300585400 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21C4064E2480411F00585400 /* CoreData.framework */,
+				21C4064C24803F6F00585400 /* CloudKit.framework */,
+				21C4064824803F5300585400 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		21DE30FD247FB1FA009DC733 /* WatchTarget */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +285,7 @@
 		21DE310C247FB1FC009DC733 /* WatchTarget Extension */ = {
 			isa = PBXGroup;
 			children = (
+				21C4064B24803F6D00585400 /* WatchTarget Extension.entitlements */,
 				21DE310D247FB1FC009DC733 /* ContentView.swift */,
 				21DE310F247FB1FC009DC733 /* HostingController.swift */,
 				21DE3111247FB1FC009DC733 /* ExtensionDelegate.swift */,
@@ -484,6 +512,7 @@
 				216EEBE12479510800A1B948 /* ContentView.swift in Sources */,
 				216EEBDC2479510800A1B948 /* SceneDelegate.swift in Sources */,
 				216EEC0E247951C300A1B948 /* NotificationView.swift in Sources */,
+				21DE312C248039D2009DC733 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +541,7 @@
 				21DE3114247FB1FC009DC733 /* NotificationController.swift in Sources */,
 				21DE3112247FB1FC009DC733 /* ExtensionDelegate.swift in Sources */,
 				21DE3116247FB1FC009DC733 /* NotificationView.swift in Sources */,
+				21C4064A24803F6300585400 /* SwiftUI_testing.xcdatamodeld in Sources */,
 				21DE3118247FB1FC009DC733 /* ComplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,6 +709,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftUI testing/SwiftUI testing.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI testing/Preview Content\"";
 				DEVELOPMENT_TEAM = S9S99M2W87;
@@ -700,6 +731,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SwiftUI testing/SwiftUI testing.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI testing/Preview Content\"";
 				DEVELOPMENT_TEAM = S9S99M2W87;
@@ -843,6 +875,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "WatchTarget Extension/WatchTarget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchTarget Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = S9S99M2W87;
@@ -867,6 +900,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "WatchTarget Extension/WatchTarget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WatchTarget Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = S9S99M2W87;

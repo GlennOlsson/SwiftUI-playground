@@ -7,21 +7,23 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
 	
-	@State var name: String = ""
-	@State var pass: String = ""
+	@FetchRequest(entity: Person.entity(), sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var listOfPeople: FetchedResults<Person>
 	
     var body: some View {
-		VStack {
-			TextField("Username", text: self.$name)
-				.textContentType(.username)
 		
-			SecureField("Pass", text: self.$pass)
-				.textContentType(.password)
-			
-			Text("Hello, \(name.count > 0 ? name : "world")! \(pass)")
+		VStack {
+			List {
+				ForEach(self.listOfPeople, id: \.id) { person in
+					Text("\(person.name ?? "inget namn") is active? \((person.isSelected ? "true" : "false") ?? "uncertain")")
+				}
+			}
+			if self.listOfPeople.count == 0 {
+				Text("No objects")
+			}
 		}
     }
 }

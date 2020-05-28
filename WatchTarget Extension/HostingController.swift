@@ -9,9 +9,20 @@
 import WatchKit
 import Foundation
 import SwiftUI
+import CoreData
 
-class HostingController: WKHostingController<ContentView> {
-    override var body: ContentView {
-        return ContentView()
+class HostingController: WKHostingController<AnyView> {
+	
+	private var context: NSManagedObjectContext!
+	
+	override func awake(withContext context: Any?) {
+		let context = (WKExtension.shared().delegate as! ExtensionDelegate).persistentContainer.viewContext
+		
+		self.context = context
+	}
+	
+    override var body: AnyView {
+		let view = ContentView().environment(\.managedObjectContext, context)
+		return AnyView(view)
     }
 }

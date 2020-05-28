@@ -76,8 +76,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 			
 		case .utilitarianSmall:
 			let template = CLKComplicationTemplateUtilitarianSmallRingText()
-			template.fillFraction = 0.5
-			template.ringStyle = .open
+			template.fillFraction = 0.3
+			template.ringStyle = .closed
 			template.textProvider = CLKTextProvider(format: "BAJS")
 			finalTemplate = template
 			
