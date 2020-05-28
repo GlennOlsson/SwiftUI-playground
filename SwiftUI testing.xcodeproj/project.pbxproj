@@ -25,6 +25,12 @@
 		21C4064A24803F6300585400 /* SwiftUI_testing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 216EEBDD2479510800A1B948 /* SwiftUI_testing.xcdatamodeld */; };
 		21C4064D24803F6F00585400 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4064C24803F6F00585400 /* CloudKit.framework */; };
 		21C4064F2480411F00585400 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4064E2480411F00585400 /* CoreData.framework */; };
+		21C4065724804D8300585400 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4065624804D8300585400 /* IntentHandler.swift */; };
+		21C4065F24804D8300585400 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4065E24804D8300585400 /* IntentsUI.framework */; };
+		21C4066224804D8300585400 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4066124804D8300585400 /* IntentViewController.swift */; };
+		21C4066524804D8300585400 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C4066324804D8300585400 /* MainInterface.storyboard */; };
+		21C4066924804D8300585400 /* IntentsTargetUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C4065D24804D8300585400 /* IntentsTargetUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		21C4066C24804D8300585400 /* IntentsTarget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C4065424804D8300585400 /* IntentsTarget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		21CBECA0247E9527004D46A7 /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBEC9F247E9527004D46A7 /* ChecklistView.swift */; };
 		21CBECA2247E9F2B004D46A7 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */; };
 		21DE3100247FB1FA009DC733 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DE30FE247FB1FA009DC733 /* Interface.storyboard */; };
@@ -57,6 +63,20 @@
 			remoteGlobalIDString = 216EEBD52479510800A1B948;
 			remoteInfo = "SwiftUI testing";
 		};
+		21C4066724804D8300585400 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 216EEBCE2479510800A1B948 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21C4065C24804D8300585400;
+			remoteInfo = IntentsTargetUI;
+		};
+		21C4066A24804D8300585400 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 216EEBCE2479510800A1B948 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21C4065324804D8300585400;
+			remoteInfo = IntentsTarget;
+		};
 		21DE310A247FB1FC009DC733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 216EEBCE2479510800A1B948 /* Project object */;
@@ -74,6 +94,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		21C4067324804D8300585400 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				21C4066924804D8300585400 /* IntentsTargetUI.appex in Embed App Extensions */,
+				21C4066C24804D8300585400 /* IntentsTarget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21DE3123247FB1FD009DC733 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,6 +156,14 @@
 		21C4064B24803F6D00585400 /* WatchTarget Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTarget Extension.entitlements"; sourceTree = "<group>"; };
 		21C4064C24803F6F00585400 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		21C4064E2480411F00585400 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		21C4065424804D8300585400 /* IntentsTarget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentsTarget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C4065624804D8300585400 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		21C4065824804D8300585400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21C4065D24804D8300585400 /* IntentsTargetUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentsTargetUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C4065E24804D8300585400 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		21C4066124804D8300585400 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		21C4066424804D8300585400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		21C4066624804D8300585400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21CBEC9F247E9527004D46A7 /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 		21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
 		21DE30FC247FB1FA009DC733 /* WatchTarget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTarget.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +207,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21C4065124804D8300585400 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C4065A24804D8300585400 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C4065F24804D8300585400 /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21DE3105247FB1FC009DC733 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +242,8 @@
 				216EEBFD2479510C00A1B948 /* SwiftUI testingUITests */,
 				21DE30FD247FB1FA009DC733 /* WatchTarget */,
 				21DE310C247FB1FC009DC733 /* WatchTarget Extension */,
+				21C4065524804D8300585400 /* IntentsTarget */,
+				21C4066024804D8300585400 /* IntentsTargetUI */,
 				216EEBD72479510800A1B948 /* Products */,
 				21C4064724803F5300585400 /* Frameworks */,
 			);
@@ -200,6 +257,8 @@
 				216EEBFA2479510C00A1B948 /* SwiftUI testingUITests.xctest */,
 				21DE30FC247FB1FA009DC733 /* WatchTarget.app */,
 				21DE3108247FB1FC009DC733 /* WatchTarget Extension.appex */,
+				21C4065424804D8300585400 /* IntentsTarget.appex */,
+				21C4065D24804D8300585400 /* IntentsTargetUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,8 +327,28 @@
 				21C4064E2480411F00585400 /* CoreData.framework */,
 				21C4064C24803F6F00585400 /* CloudKit.framework */,
 				21C4064824803F5300585400 /* CloudKit.framework */,
+				21C4065E24804D8300585400 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21C4065524804D8300585400 /* IntentsTarget */ = {
+			isa = PBXGroup;
+			children = (
+				21C4065624804D8300585400 /* IntentHandler.swift */,
+				21C4065824804D8300585400 /* Info.plist */,
+			);
+			path = IntentsTarget;
+			sourceTree = "<group>";
+		};
+		21C4066024804D8300585400 /* IntentsTargetUI */ = {
+			isa = PBXGroup;
+			children = (
+				21C4066124804D8300585400 /* IntentViewController.swift */,
+				21C4066324804D8300585400 /* MainInterface.storyboard */,
+				21C4066624804D8300585400 /* Info.plist */,
+			);
+			path = IntentsTargetUI;
 			sourceTree = "<group>";
 		};
 		21DE30FD247FB1FA009DC733 /* WatchTarget */ = {
@@ -319,11 +398,14 @@
 				216EEBD32479510800A1B948 /* Frameworks */,
 				216EEBD42479510800A1B948 /* Resources */,
 				21DE3123247FB1FD009DC733 /* Embed Watch Content */,
+				21C4067324804D8300585400 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				21DE3121247FB1FD009DC733 /* PBXTargetDependency */,
+				21C4066824804D8300585400 /* PBXTargetDependency */,
+				21C4066B24804D8300585400 /* PBXTargetDependency */,
 			);
 			name = "SwiftUI testing";
 			productName = "SwiftUI testing";
@@ -365,6 +447,40 @@
 			productName = "SwiftUI testingUITests";
 			productReference = 216EEBFA2479510C00A1B948 /* SwiftUI testingUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		21C4065324804D8300585400 /* IntentsTarget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21C4067024804D8300585400 /* Build configuration list for PBXNativeTarget "IntentsTarget" */;
+			buildPhases = (
+				21C4065024804D8300585400 /* Sources */,
+				21C4065124804D8300585400 /* Frameworks */,
+				21C4065224804D8300585400 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IntentsTarget;
+			productName = IntentsTarget;
+			productReference = 21C4065424804D8300585400 /* IntentsTarget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		21C4065C24804D8300585400 /* IntentsTargetUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21C4066D24804D8300585400 /* Build configuration list for PBXNativeTarget "IntentsTargetUI" */;
+			buildPhases = (
+				21C4065924804D8300585400 /* Sources */,
+				21C4065A24804D8300585400 /* Frameworks */,
+				21C4065B24804D8300585400 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IntentsTargetUI;
+			productName = IntentsTargetUI;
+			productReference = 21C4065D24804D8300585400 /* IntentsTargetUI.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		21DE30FB247FB1FA009DC733 /* WatchTarget */ = {
 			isa = PBXNativeTarget;
@@ -421,6 +537,12 @@
 						CreatedOnToolsVersion = 11.5;
 						TestTargetID = 216EEBD52479510800A1B948;
 					};
+					21C4065324804D8300585400 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					21C4065C24804D8300585400 = {
+						CreatedOnToolsVersion = 11.5;
+					};
 					21DE30FB247FB1FA009DC733 = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -447,6 +569,8 @@
 				216EEBF92479510C00A1B948 /* SwiftUI testingUITests */,
 				21DE30FB247FB1FA009DC733 /* WatchTarget */,
 				21DE3107247FB1FC009DC733 /* WatchTarget Extension */,
+				21C4065324804D8300585400 /* IntentsTarget */,
+				21C4065C24804D8300585400 /* IntentsTargetUI */,
 			);
 		};
 /* End PBXProject section */
@@ -473,6 +597,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C4065224804D8300585400 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C4065B24804D8300585400 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C4066524804D8300585400 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +671,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21C4065024804D8300585400 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C4065724804D8300585400 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C4065924804D8300585400 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C4066224804D8300585400 /* IntentViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21DE3104247FB1FC009DC733 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -559,6 +714,16 @@
 			target = 216EEBD52479510800A1B948 /* SwiftUI testing */;
 			targetProxy = 216EEBFB2479510C00A1B948 /* PBXContainerItemProxy */;
 		};
+		21C4066824804D8300585400 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21C4065C24804D8300585400 /* IntentsTargetUI */;
+			targetProxy = 21C4066724804D8300585400 /* PBXContainerItemProxy */;
+		};
+		21C4066B24804D8300585400 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21C4065324804D8300585400 /* IntentsTarget */;
+			targetProxy = 21C4066A24804D8300585400 /* PBXContainerItemProxy */;
+		};
 		21DE310B247FB1FC009DC733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 21DE3107247FB1FC009DC733 /* WatchTarget Extension */;
@@ -578,6 +743,14 @@
 				216EEBE82479510C00A1B948 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		21C4066324804D8300585400 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21C4066424804D8300585400 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		21DE30FE247FB1FA009DC733 /* Interface.storyboard */ = {
@@ -708,6 +881,7 @@
 		216EEC042479510C00A1B948 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SwiftUI testing/SwiftUI testing.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -730,6 +904,7 @@
 		216EEC052479510C00A1B948 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SwiftUI testing/SwiftUI testing.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -830,6 +1005,82 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "SwiftUI testing";
+			};
+			name = Release;
+		};
+		21C4066E24804D8300585400 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S9S99M2W87;
+				INFOPLIST_FILE = IntentsTargetUI/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "glennolsson.SwiftUI-testing.IntentsTargetUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		21C4066F24804D8300585400 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S9S99M2W87;
+				INFOPLIST_FILE = IntentsTargetUI/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "glennolsson.SwiftUI-testing.IntentsTargetUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		21C4067124804D8300585400 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S9S99M2W87;
+				INFOPLIST_FILE = IntentsTarget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "glennolsson.SwiftUI-testing.IntentsTarget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		21C4067224804D8300585400 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S9S99M2W87;
+				INFOPLIST_FILE = IntentsTarget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "glennolsson.SwiftUI-testing.IntentsTarget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -956,6 +1207,24 @@
 			buildConfigurations = (
 				216EEC0A2479510C00A1B948 /* Debug */,
 				216EEC0B2479510C00A1B948 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21C4066D24804D8300585400 /* Build configuration list for PBXNativeTarget "IntentsTargetUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21C4066E24804D8300585400 /* Debug */,
+				21C4066F24804D8300585400 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21C4067024804D8300585400 /* Build configuration list for PBXNativeTarget "IntentsTarget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21C4067124804D8300585400 /* Debug */,
+				21C4067224804D8300585400 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
