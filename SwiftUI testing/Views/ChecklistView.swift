@@ -120,9 +120,7 @@ struct ChecklistView: View {
 		VStack {
 			if showQRCodeReader {
 				QRCodeReader(isFrontCamera: self.$isFrontCamera,  isShowing: self.$showQRCodeReader, onScan: self.onScan(_:))
-				.alert(isPresented: self.$isShowingAlert, content: {
-					self.currentAlert
-				})
+				
 			}
 			
 			List {
@@ -131,7 +129,9 @@ struct ChecklistView: View {
 				}
 			}
 			
-		}
+		}.alert(isPresented: self.$isShowingAlert, content: {
+			self.currentAlert
+		})
 		.navigationBarItems(trailing:	Button(action: {
 			self.showQRCodeReader.toggle()
 		}, label: {

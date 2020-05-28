@@ -85,7 +85,7 @@ struct QRCodeReader: UIViewControllerRepresentable {
 		context.coordinator.layer?.isHidden = true
 		
 		if self.isShowing {
-			 captureSession.startRunning()
+			captureSession.startRunning()
 		} else {
 			captureSession.stopRunning()
 		}
