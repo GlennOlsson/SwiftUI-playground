@@ -154,7 +154,7 @@ struct ScannerView: UIViewControllerRepresentable {
 		if isFront {
 			return AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front)
 		} else {
-			return AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: .back)
+			return AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
 		}
 	}
 	
