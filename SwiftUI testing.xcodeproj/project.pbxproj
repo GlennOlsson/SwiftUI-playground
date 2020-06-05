@@ -31,6 +31,7 @@
 		21C4066524804D8300585400 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C4066324804D8300585400 /* MainInterface.storyboard */; };
 		21C4066924804D8300585400 /* IntentsTargetUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C4065D24804D8300585400 /* IntentsTargetUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		21C4066C24804D8300585400 /* IntentsTarget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C4065424804D8300585400 /* IntentsTarget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		21C406752480693100585400 /* File.metal in Sources */ = {isa = PBXBuildFile; fileRef = 21C406742480693100585400 /* File.metal */; };
 		21CBECA0247E9527004D46A7 /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBEC9F247E9527004D46A7 /* ChecklistView.swift */; };
 		21CBECA2247E9F2B004D46A7 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */; };
 		21DE3100247FB1FA009DC733 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DE30FE247FB1FA009DC733 /* Interface.storyboard */; };
@@ -164,6 +165,7 @@
 		21C4066124804D8300585400 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
 		21C4066424804D8300585400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		21C4066624804D8300585400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21C406742480693100585400 /* File.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = File.metal; sourceTree = "<group>"; };
 		21CBEC9F247E9527004D46A7 /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 		21CBECA1247E9F2B004D46A7 /* QRCodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
 		21DE30FC247FB1FA009DC733 /* WatchTarget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTarget.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +239,7 @@
 		216EEBCD2479510800A1B948 = {
 			isa = PBXGroup;
 			children = (
+				21C406742480693100585400 /* File.metal */,
 				216EEBD82479510800A1B948 /* SwiftUI testing */,
 				216EEBF22479510C00A1B948 /* SwiftUI testingTests */,
 				216EEBFD2479510C00A1B948 /* SwiftUI testingUITests */,
@@ -646,6 +649,7 @@
 				212F1170247AC3810075F4E0 /* UserDefaultWrapper.swift in Sources */,
 				212F116E247AB77C0075F4E0 /* SettingsView.swift in Sources */,
 				216EEBDA2479510800A1B948 /* AppDelegate.swift in Sources */,
+				21C406752480693100585400 /* File.metal in Sources */,
 				212F116C247AAAF60075F4E0 /* NotificationExample.swift in Sources */,
 				216EEBDF2479510800A1B948 /* SwiftUI_testing.xcdatamodeld in Sources */,
 				216EEBE12479510800A1B948 /* ContentView.swift in Sources */,
