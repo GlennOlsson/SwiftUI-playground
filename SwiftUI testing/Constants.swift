@@ -8,6 +8,7 @@
 
 import CoreData
 import Foundation
+import Combine
 
 let peopleWithTickets: [[String: Any]] = [
 	[
@@ -87,8 +88,41 @@ func insertPeople(moc: NSManagedObjectContext) {
 			personEntity.id = person["id"] as? String
 			personEntity.isSelected = person["isSelected"] as! Bool
 		}
+		
 		try moc.save()
+		
 	} catch {
 		print("Error! \(error)")
 	}
+}
+
+var c: AnyCancellable?
+
+func insertPersonSlow(moc: NSManagedObjectContext) {
+	
+	let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+	fetchRequest.predicate = NSPredicate(format: "id == 'glennolle'")
+	
+	let results = try! moc.fetch(fetchRequest) as! [Person]
+
+	var isSelected = false
+	for person in results {
+		isSelected = person.isSelected
+		print("Prevois was \(isSelected ? "selected" : "not selected")")
+		moc.delete(person)
+	}
+	
+	DispatchQueue.global().asyncAfter(deadline: .now() + 10, execute: {
+		let newPerson = Person(context: moc)
+		newPerson.name = "Glenne Olssesson"
+		newPerson.id = "glennolle"
+		newPerson.isSelected = isSelected
+		
+		c = newPerson.publisher(for: \.isSelected).didChange().sink(receiveValue: {
+			print("DID CHANGE CHANGED TO \(newPerson.isSelected ? "true": "false")")
+		})
+		
+		try? moc.save()
+		print("Saved")
+	})
 }

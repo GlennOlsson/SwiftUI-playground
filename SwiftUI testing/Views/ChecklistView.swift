@@ -8,6 +8,9 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import CoreData
+
 //
 //class Person: ObservableObject{
 //	let name: String
@@ -21,6 +24,30 @@ import SwiftUI
 //	}
 //}
 
+class ListOfPeopleSubscriber: Subscriber, ObservableObject {
+	typealias Input = [FetchedResults<Person>.Element]
+	typealias Failure = Never
+	
+	@Published var listOfPeople: [Person] = []
+	
+	func handleData() {
+		
+	}
+	
+	func receive(subscription: Subscription) {
+		print("Recieved")
+	}
+	
+	func receive(_ input: [FetchedResults<Person>.Element]) -> Subscribers.Demand {
+		print("")
+		return .unlimited
+	}
+	
+	func receive(completion: Subscribers.Completion<Never>) {
+		
+	}
+}
+
 struct ChecklistView: View {
 	
 	@FetchRequest(entity: Person.entity(), sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var listOfPeople: FetchedResults<Person>
@@ -30,6 +57,40 @@ struct ChecklistView: View {
 	
 	@State var isShowingAlert: Bool = false
 	@State var currentAlert: Alert!
+	
+	@State var shownList: [Person] = []
+	
+	@Environment(\.managedObjectContext) var context
+	
+	@State var notificationSubscription: AnyCancellable?
+	
+	func executeRequest() {
+		let request: NSFetchRequest<Person> = Person.fetchRequest()
+		do {
+			print("exectute fetch request")
+			
+			self.shownList = try context.fetch(request)
+			
+		} catch {
+			print("Error with fetch request: \(error)")
+		}
+	}
+	
+	func subscribeToRequest() {
+		self.notificationSubscription = NotificationCenter.default
+			.publisher(for: .NSManagedObjectContextDidSave, object: context)
+			.sink(receiveValue: { notification in
+				print("Was saved")
+				self.executeRequest()
+//				_ = self.listOfPeople.publisher.collect().removeDuplicates()
+//					.sink(receiveValue: { list in
+//					print("GOT LIST OF \(list.count) people")
+//					self.shownList = list
+//				})
+			})
+		
+		
+	}
 	
 	func onScan(_ codeContent: String) {
 		
@@ -56,11 +117,10 @@ struct ChecklistView: View {
 		VStack {
 			if showQRCodeReader {
 				QRCodeReader(isFrontCamera: self.$isFrontCamera,  isShowing: self.$showQRCodeReader, onScan: self.onScan(_:))
-				
 			}
 			
 			List {
-				ForEach(listOfPeople, id: \.id) { person in
+				ForEach(shownList, id: \.id) { person in
 					ListItem(person: person)
 				}
 			}
@@ -73,6 +133,12 @@ struct ChecklistView: View {
 		}, label: {
 			Text("Toggle reader")
 		}))
+		.onAppear() {
+			self.executeRequest()
+			self.subscribeToRequest()
+		}.onDisappear() {
+			self.notificationSubscription?.cancel()
+		}
 	}
 }
 
